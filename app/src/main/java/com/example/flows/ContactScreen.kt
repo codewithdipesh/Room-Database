@@ -86,7 +86,7 @@ fun ContactScreen(
             }
             items(state.contacts){contact->
                 Row (modifier = Modifier.fillMaxWidth()){
-                    Column(modifier = Modifier.fillMaxWidth(1f)) {
+                    Column(modifier = Modifier.weight(1f)) {
 
                         Text(text = "${contact.firstName} ${contact.lastName}",fontSize = 20.sp)
                         Text(text = contact.phoneNumber, fontSize = 12.sp)

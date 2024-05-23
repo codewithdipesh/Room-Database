@@ -41,7 +41,7 @@ class ContactViewModel(
         when(event){
             is ContactEvent.DeleteContacts -> {
                 viewModelScope.launch {
-                    dao.DeleteContact(event.contact)
+                    dao.deleteContact(event.contact)
                 }
             }
             ContactEvent.HideDialog -> {
@@ -50,17 +50,16 @@ class ContactViewModel(
                 ) }
             }
             ContactEvent.SaveContact -> {
-                viewModelScope.launch {
                         val firstName = state.value.firstName
                         val lastName = state.value.lastName
                         val phoneNumber = state.value.phoneNumber
 
                         if (firstName.isBlank()|| lastName.isBlank() || phoneNumber.isBlank() ){
-                            return@launch
+                            return
                         }
                     val contact = Contact(firstName,lastName, phoneNumber)
                     viewModelScope.launch{
-                        dao.UpsertContact(contact)
+                        dao.insertContact(contact)
                     }
                     _state.update {
                         it.copy(
@@ -69,9 +68,6 @@ class ContactViewModel(
                             lastName = "",
                             phoneNumber = ""
                         )
-                    }
-
-
                 }
             }
             is ContactEvent.SetFirstName -> {
@@ -84,14 +80,14 @@ class ContactViewModel(
             is ContactEvent.SetLastName -> {
                 _state.update {
                     it.copy(
-                        firstName = event.lastName
+                        lastName = event.lastName
                     )
                 }
             }
             is ContactEvent.SetPhoneNumber -> {
                 _state.update {
                     it.copy(
-                        firstName = event.phoneNumber
+                        phoneNumber = event.phoneNumber
                     )
                 }
             }

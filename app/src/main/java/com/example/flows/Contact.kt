@@ -9,6 +9,6 @@ data class Contact(
     val firstName : String,
     val lastName : String,
     val phoneNumber : String,
-    @PrimaryKey(autoGenerate = true) //primary key
-    val id :Int? = 0
+    @PrimaryKey(autoGenerate = true)
+    val id :Int? = null //it needs to be null for autogenerate
 )

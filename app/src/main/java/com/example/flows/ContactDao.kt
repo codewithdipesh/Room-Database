@@ -11,11 +11,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao //data access Object
 interface ContactDao {
 
-     @Upsert //mix of insert and update
-     suspend fun UpsertContact(contact: Contact) //run in a corutine untill database call is finished
+     @Insert //mix of insert and update
+     suspend fun insertContact(contact: Contact) //run in a corutine untill database call is finished
 
      @Delete
-     suspend fun DeleteContact(contact: Contact)
+     suspend fun deleteContact(contact: Contact)
 
      @Query("SELECT * FROM contact ORDER BY firstName ASC")
      fun getContactOrderedByFirstName(): Flow<List<Contact>>
